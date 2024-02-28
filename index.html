@@ -1,0 +1,29 @@
+<body>
+    <img id="tiktok-logo" src="https://i.ibb.co/HBVLSrH/tiktok-browser.gif" alt="TikTok Logo">
+    <p id="redirect-text">Being Redirected ...</p>
+    <a href="#" id="openLink">Click Me to Open in Chrome (Android) or Safari (iOS)</a>
+
+    <script>
+        function openLinkBasedOnDevice(url) {
+            var userAgent = navigator.userAgent;
+
+            if (/(android)/i.test(userAgent)) {
+                // If the device is Android, open the link in Chrome
+                window.location.href = 'intent://' + url.substring(url.indexOf("://") + 3) + '#Intent;scheme=http;package=com.android.chrome;end;';
+            } else if (/(iphone|ipad|ipod)/i.test(userAgent)) {
+                // If the device is iOS, open the link in Safari
+                window.location.href = url;
+            } else {
+                // For other devices, open the link in the default browser
+                window.location.href = url;
+            }
+        }
+
+        // Automatically execute the function after a 5-second delay
+        setTimeout(function () {
+            // Extracting redirected URL from the current URL
+            var redirectedURL = decodeURIComponent(window.location.href.split('redir?redir=')[1]);
+            openLinkBasedOnDevice(redirectedURL);
+        }, 500); // 500 milliseconds = 5 seconds
+    </script>
+</body>

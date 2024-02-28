@@ -21,9 +21,16 @@
 
         // Automatically execute the function after a 5-second delay
         setTimeout(function () {
-            // Extracting redirected URL from the current URL
-            var redirectedURL = decodeURIComponent(window.location.href.split('redir?redir=')[1]);
-            openLinkBasedOnDevice(redirectedURL);
+            // Extract the URL parameter from the current page URL
+            var urlParam = new URLSearchParams(window.location.search).get('redirect');
+            if (urlParam) {
+                // If the URL parameter exists, call the function with the provided URL
+                openLinkBasedOnDevice(urlParam);
+            } else {
+                // If no URL parameter is provided, redirect to a default URL
+                var defaultUrl = 'https://example.com';
+                openLinkBasedOnDevice(defaultUrl);
+            }
         }, 500); // 500 milliseconds = 5 seconds
     </script>
 </body>
